@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: #444;
+  padding: 10px;
+  overflow: hidden;
+}
+
+body #container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 150px;
+}
+
+body #container #gameBoard {
+  background: #444;
+}
+
+body #container #slider {
+  background: #222;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body #container #slider h1 {
+  color: #333;
+  font-size: 15vh;
+  transform: rotate(-90deg);
+}
