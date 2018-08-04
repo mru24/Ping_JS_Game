@@ -24,6 +24,41 @@ body #container {
 
 body #container #gameBoard {
   background: #444;
+  position: relative;
+}
+
+body #container #gameBoard #scoreBoard {
+  opacity: .7;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 100px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+body #container #gameBoard #scoreBoard .box {
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: rgba(102, 102, 102, 0.2);
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+body #container #gameBoard #scoreBoard .box h1 {
+  border-bottom: 2px solid #333;
+  font-size: 26px;
+  color: #333;
+}
+
+body #container #gameBoard #scoreBoard .box .display {
+  font-size: 28px;
+  color: #ccc;
+  text-align: center;
 }
 
 body #container #slider {
@@ -31,6 +66,7 @@ body #container #slider {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 body #container #slider h1 {
