@@ -15,7 +15,7 @@ var pgHeight = cc.height;
 // paddles
 var pWidth = cc.width/50;
 var pHeight = cc.height/5;
-var pxPos = cc.width - 80 - pWidth;
+var pxPos = cc.width - 20 - pWidth;
 var pyPos = cc.height/2 - pHeight/2;
 
 // ball
@@ -34,6 +34,11 @@ var round = 1;
 var point = 0;
 var record = 0;
 
+// CHECK FOR TOUCHSCREEN
+function isTouchDevice() {
+    return 'ontouchstart' in document.documentElement;
+}
+
 window.onload = function() {
 
   setInterval(function() {
@@ -44,7 +49,6 @@ window.onload = function() {
 
   }, 1000/(gameSpeed));
 }
-
 
 // functions
 
@@ -122,18 +126,28 @@ function highScore() {
   }
 }
 
-
-
+  // MOVE PADDLES
 function PaddleMove() {
-  slider.addEventListener("mousemove", function(e) {
-    pyPos = e.clientY - pHeight/2;
-    if(pyPos < 0) {
-      pyPos = 0;
-    }
-    if(pyPos > cc.height - pHeight) {
-      pyPos = cc.height - pHeight;
-    }
-  })
+  // IN CASE TOUCHSCREEN DEVICE
+  if (isTouchDevice()) {
+    slider.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      var touch = e.touches[0];
+      pyPos = touch.clientY - pHeight;
+    });
+  }
+    // IN CASE MOUSE OPERATED
+    else {
+    slider.addEventListener("mousemove", function(e) {
+      pyPos = e.clientY - pHeight/2;
+      if(pyPos < 0) {
+        pyPos = 0;
+      }
+      if(pyPos > cc.height - pHeight) {
+        pyPos = cc.height - pHeight;
+      }
+    })
+  }
 }
 
 function MoveElements() {
@@ -145,27 +159,20 @@ function MoveElements() {
     yv = -yv;
   }
 
+  // ball and paddle collision
   if(ballX+size > pxPos && ballX+size < pxPos+5) {
     if(ballY > pyPos && ballY < pyPos + pHeight){
       xv = -xv;
+      addSpeed();
+      addPoint();
+      highScore();
     }
   }
+  // ball missed paddle
   if(ballX > cc.width) {
     reset();
     round += 1;
   }
-  // ball missed paddle
-  // if(ballX > cc.width) {
-  //   reset();
-  //   round += 1;
-  // }
-  // // ball and paddle collision
-  // if(ballX + size > pxPos && (ballY > pyPos && ballY < pyPos + pHeight) && xv > 0) {
-  //   xv = -xv;
-  //   addSpeed();
-  //   addPoint();
-  //   highScore();
-  // }
 
   // ball left wall collision
   if(ballX - size < 0) {
